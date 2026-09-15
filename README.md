@@ -27,6 +27,41 @@ Private repositories may require GitHub Advanced Security or GitHub Secret Prote
 to be enabled for the organisation. Public repositories can use the applicable
 public-repository security features without exposing real credentials.
 
+## Application reference
+
+The demo application is a small Flask service with an in-memory SQLite database.
+Start it locally after installing the requirements:
+
+```bash
+flask --app app.main run
+```
+
+The service exposes these endpoints:
+
+| Method | Path | Description |
+| --- | --- | --- |
+| `GET` | `/health` | Returns `{"status": "ok"}`. |
+| `GET` | `/users?name=<value>` | Searches the sample users by name. The `name` parameter is required and must be 50 characters or fewer. |
+
+Example requests:
+
+```bash
+curl http://127.0.0.1:5000/health
+curl 'http://127.0.0.1:5000/users?name=Ada'
+```
+
+The application is intentionally simple and resets its sample data for each
+request. It is not intended for production use.
+
+## Project layout
+
+| Path | Purpose |
+| --- | --- |
+| `app/main.py` | Flask application and sample API endpoints |
+| `tests/test_main.py` | Backend tests |
+| `demo/` | Isolated fixtures for security demonstrations |
+| `.github/workflows/` | Backend CI, CodeQL, and dependency review workflows |
+
 ## Demo branches
 
 | Branch | Demo |
